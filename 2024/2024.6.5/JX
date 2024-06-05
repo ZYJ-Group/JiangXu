@@ -1,3 +1,7 @@
+以下是c语言复习笔记
+
+
+
 #include <stdio.h>
 int main(int argc, const char *argv[])
 {
