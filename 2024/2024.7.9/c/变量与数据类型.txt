@@ -1,0 +1,53 @@
+使用变量之前应该先对变量进行声明如 int a；告诉编译器变量的名字a和变量的大小（数据类型）int
+也可以在定义时给变量赋值如 int a=1；和c一样可以定义多个变量如 int a，b；
+在大括号内定义的变量为局部变量如果不赋值为随机的值可能会报错
+定义在{}内的变量为局部变量 反之是全局变量 当两者重名时运行至局部变量处会覆盖全局变量的值
+一般局部变量初始化要赋值 全局变量可以不赋值
+常量是不可被更改的变量 1.#define ZERO 0 //宏定义编译预处理指令 只做文本替换 一般大写以表示宏定义的 （不推荐因为宏定义无数据类型）
+                     2.const修饰变量 const int zero=0；//既然不可更改在定义时要赋值
+
+数据类型：以表示变量占多大内存
+         1.整形  char int  short long  long long //如果要查看所定义变量的字节可以 sizeof（变量）
+                  8    16  16    32      64 
+         2.无符号整型 表示的数据范围扩大一倍 在定义前加unsigned即可
+         3.有符号整型 在定义时加上signed
+         4.字符型 char 而字符串是字符的组合 所以字符串字面值的类型 本质上是char类型构成的“数组”（array）
+         5.转义字符 如	cout << "Hello World!\n\"Hello C++!\"" << endl; 中 \n 则表示换行符
+
+枚举类型：enum
+         1.在枚举中用符号而不是具体的数字来表示程序中的数字，增加程序的可阅读性 enume color{red，yellow，green}；
+           其中red=0 yellow=1 green=2
+         2.枚举类型是int 如果不对其赋值则从0递增 也可以对其赋值enum Color {RED = 1,GREEN = 2,BLUE = 4};
+           在枚举类型 Color 被定义后，就可以像使用其他基本数据类型一样使用它
+         3.枚举类型的变量（color）可以被声明并初始化为枚举内成员之一如 color favoritecolor=RED；
+           定义Color类型的变量 favoriteColor 并将其初始化为 Color 枚举中定义的 RED 值
+
+类型转换：当把一个常量的值赋给一个变量时 当超出了这个变量所能存储的大小时就需要进行类型转换（自动）
+         1.bool a=9；由于布尔类型的值只有1和0所以此时编译器自动把a的值转换成1
+         2.int a=3.14；a是一个整数类型的值所以此时编译器自动把a的值转换成3
+         3.float a=10；此时a=10.0
+         一般来说数据类型的转化是从小转大的
+         
+强制类型转换:两个int类型的数相除 执行的是整数除法得到整数 如果想要更准确的结果就必须将int类型强制转换成double做浮点数除法
+            int total = 20, num = 6;
+	          double avg = total / num;//如果不是double类型的数则平均值为3
+	          cout << " avg = " << avg << endl;    // avg = 3.333
+           1.c语言的强制类型转换   (类型名称) 值
+           2.c++的强制类型转换     类型名称 (值)  就好像是调用了一个数据类型函数一样 把值放在（）里面
+           3.C++还引入了4个强制类型转换运算符 分别是 static_cast、 dynamic_cast, const_cast、 和 reinterpret_cast
+             使用****_cast<新类型名称> (值)
+
+static_cast:
+       这个关键字的作用主要表现在 static 上，是一种静态的转换，在编译期就能确定的转换，可以完成C语言中的强制类型转换中的大部分工作，
+       但需要注意的是，它不能转换掉表达式的 const、volitale 
+  1.用于基本数据类型之间的转换，如把int转换成char，把int转换成double等
+    int val = 110119;
+    char c = static_cast<char>(va1);
+    double d = static_cast<double>(val);
+  2.将表达式转换成void类型，并将转换后的结果丢弃
+    int val = 110119;
+    static_cast<void>(val);  //通过使用 static_cast<void>(val);程序员可以清晰地表明这个变量未使用但又不想在编译时出现警告时
+                               这种方式并不改变变量的值或类型，也不执行任何操作 它纯粹是为了避免警告而已
+dynamic_cast
+const_cast
+reinterpret_cast
